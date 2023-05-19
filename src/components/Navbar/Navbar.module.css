@@ -2,10 +2,10 @@
     grid-area: n;
     background-color: #f10404;
 }
-.item{
-    color: black;
+.item a{
+    color: white;
 }
 
-.item.active{
+.item a.active{
     color: aqua;
 }

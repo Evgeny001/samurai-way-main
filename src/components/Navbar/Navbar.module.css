@@ -4,8 +4,9 @@
 }
 .item a{
     color: white;
+    text-decoration: none;
 }
 
-.item a.active{
-    color: aqua;
+.item a.activeLink{
+    color: gold;
 }

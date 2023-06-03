@@ -1,11 +1,21 @@
 import React from 'react';
 import s from './Dialogs.module.css'
 import {NavLink} from "react-router-dom";
+import {MessagesDataType} from "../../App";
 
 type DialogItemPropsType = {
     name: string
     id: number
 }
+type DialogsPropsType = {
+    dialogsData: Array<DialogsDataType>
+    messagesData: MessagesDataType[]
+}
+export type DialogsDataType = {
+    name: string
+    id: number
+}
+
 export const DialogItem = (props: DialogItemPropsType) => {
     const path = '/dialogs/' + props.id
     return (
@@ -22,26 +32,27 @@ export const Message = (props: MessagePropsType) => {
         <div className={s.message}>{props.message}</div>
     )
 }
-export const Dialogs = () => {
+
+
+export const Dialogs = (props: DialogsPropsType) => {
     return (
         <div className={s.dialogs}>
-             <div className={s.dialogsItems}>
-                 <DialogItem name={'Dinich'} id={1}/>
-                 <DialogItem name={'Andrey'} id={2}/>
-                 <DialogItem name={'Sveta'} id={3}/>
-                 <DialogItem name={'Sasha'} id={4}/>
-                 <DialogItem name={'Victor'} id={5}/>
-                 <DialogItem name={'Valera'} id={6}/>
-             </div>
-               <div className={s.message}>
-                   <Message message={'Hello'}/>
-                   <Message message={'How is your IT-kamasutra?'}/>
-                   <Message message={'Yo'}/>
-               </div>
+            <div className={s.dialogsItems}>
+                <DialogItem name={props.dialogsData[0].name} id={props.dialogsData[0].id}/>
+                <DialogItem name={props.dialogsData[1].name} id={props.dialogsData[1].id}/>
+                <DialogItem name={props.dialogsData[2].name} id={props.dialogsData[2].id}/>
+                <DialogItem name={props.dialogsData[3].name} id={props.dialogsData[3].id}/>
+                <DialogItem name={props.dialogsData[4].name} id={props.dialogsData[4].id}/>
+                <DialogItem name={props.dialogsData[5].name} id={props.dialogsData[5].id}/>
+
             </div>
+            <div className={s.message}>
+                <Message message={props.messagesData[0].message}/>
+                <Message message={props.messagesData[1].message}/>
+                <Message message={props.messagesData[2].message}/>
 
-           
-
+            </div>
+        </div>
 
 
     );

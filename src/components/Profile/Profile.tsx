@@ -1,5 +1,4 @@
 import React from "react"
-import Classes from './Profile.module.css'
 import {MyPosts} from "./MyPosts /MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 
@@ -15,7 +14,7 @@ const postsData: PostsDataType[] = [
 type PostsDataPropsType = {
     postsData: PostsDataType[]
 }
-export const Profile = () => {
+export const Profile = (props: PostsDataPropsType) => {
     return (
         <div>
             <ProfileInfo/>

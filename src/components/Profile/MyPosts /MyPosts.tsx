@@ -8,6 +8,7 @@ type PostsDataPropsType = {
 }
 
 export const MyPosts = (props: PostsDataPropsType) => {
+    const poctsElements = props.postsData.map(el=> <Pocts message={el.message} likes={el.likes}/>)
     return(
         <div>
             <h3>My posts</h3>
@@ -17,9 +18,7 @@ export const MyPosts = (props: PostsDataPropsType) => {
             </div>
 
             <div >
-                <Pocts message={props.postsData[0].message} likes={props.postsData[0].likes} />
-                <Pocts message={props.postsData[1].message} likes={props.postsData[1].likes} />
-
+                {poctsElements}
             </div>
         </div>
     )

@@ -21,7 +21,7 @@ export type MessagesDataType = {
 }
 const messagesData: MessagesDataType[] = [
     {id: 1, message: 'Hello'},
-    { id: 2, message: 'How is your IT-kamasutra?'},
+    {id: 2, message: 'How is your IT-kamasutra?'},
     {id: 3, message: 'Yo'}
 ]
 

@@ -32,25 +32,16 @@ export const Message = (props: MessagePropsType) => {
         <div className={s.message}>{props.message}</div>
     )
 }
-
-
 export const Dialogs = (props: DialogsPropsType) => {
+    const dialogItemElements = props.dialogsData.map(el => <DialogItem name={el.name} id={el.id}/>)
+    const messageElements = props.messagesData.map(el => <Message message={el.message}/>)
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
-                <DialogItem name={props.dialogsData[0].name} id={props.dialogsData[0].id}/>
-                <DialogItem name={props.dialogsData[1].name} id={props.dialogsData[1].id}/>
-                <DialogItem name={props.dialogsData[2].name} id={props.dialogsData[2].id}/>
-                <DialogItem name={props.dialogsData[3].name} id={props.dialogsData[3].id}/>
-                <DialogItem name={props.dialogsData[4].name} id={props.dialogsData[4].id}/>
-                <DialogItem name={props.dialogsData[5].name} id={props.dialogsData[5].id}/>
-
+                {dialogItemElements}
             </div>
             <div className={s.message}>
-                <Message message={props.messagesData[0].message}/>
-                <Message message={props.messagesData[1].message}/>
-                <Message message={props.messagesData[2].message}/>
-
+                {messageElements}
             </div>
         </div>
 

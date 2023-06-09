@@ -1,6 +1,8 @@
 import React from "react";
 import {Pocts} from "./Pocts/Pocts";
-import {PostsDataType} from "../Profile";
+import {PostsDataType} from "../../../index";
+
+
 
 
 type PostsDataPropsType = {
@@ -9,6 +11,10 @@ type PostsDataPropsType = {
 
 export const MyPosts = (props: PostsDataPropsType) => {
     const poctsElements = props.postsData.map(el=> <Pocts message={el.message} likes={el.likes}/>)
+    // let newPostElement = React.createRef()
+    // let addPost = () => {
+    //     let text = newPostElement.current.value
+    // }
     return(
         <div>
             <h3>My posts</h3>

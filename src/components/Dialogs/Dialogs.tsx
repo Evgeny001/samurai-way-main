@@ -1,12 +1,9 @@
 import React from 'react';
 import s from './Dialogs.module.css'
-import {NavLink} from "react-router-dom";
-import {MessagesDataType} from "../../App";
+import {DialogItem} from "./DialogItem/DialogItem";
+import {Message} from "./Message/Message";
+import {MessagesDataType} from "../../index";
 
-type DialogItemPropsType = {
-    name: string
-    id: number
-}
 type DialogsPropsType = {
     dialogsData: Array<DialogsDataType>
     messagesData: MessagesDataType[]
@@ -14,23 +11,6 @@ type DialogsPropsType = {
 export type DialogsDataType = {
     name: string
     id: number
-}
-
-export const DialogItem = (props: DialogItemPropsType) => {
-    const path = '/dialogs/' + props.id
-    return (
-        <div className={s.dialog + ' ' + s.active}>
-            <NavLink to={path}>{props.name}</NavLink>
-        </div>
-    )
-}
-type MessagePropsType = {
-    message: string
-}
-export const Message = (props: MessagePropsType) => {
-    return (
-        <div className={s.message}>{props.message}</div>
-    )
 }
 export const Dialogs = (props: DialogsPropsType) => {
     const dialogItemElements = props.dialogsData.map(el => <DialogItem name={el.name} id={el.id}/>)
@@ -40,11 +20,9 @@ export const Dialogs = (props: DialogsPropsType) => {
             <div className={s.dialogsItems}>
                 {dialogItemElements}
             </div>
-            <div className={s.message}>
+            <div className={s.message} onClick={()=>alert("Hey")}>
                 {messageElements}
             </div>
         </div>
-
-
     );
 };

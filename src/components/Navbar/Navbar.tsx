@@ -1,14 +1,15 @@
 // @ts-ignore
 import React from "react";
 import Classes from './Navbar.module.css'
-import {NavLink} from "react-router-dom";
+import {NavLink, Route, Routes} from "react-router-dom";
+import {Friends, FriendsPropsType} from "../Friends/Friends";
 
 // let c1 = 'item'
 // let c2 = 'active'
 // let classes = c1 + ' ' + c2 //'item active'
 let classesNew = `${Classes.item} ${Classes.active}`
 
-export const Navbar = () => {
+export const Navbar = (props: FriendsPropsType) => {
     return (
         <nav className={Classes.nav}>
             <div className={Classes.item}>
@@ -40,6 +41,15 @@ export const Navbar = () => {
                              className={navData => navData.isActive ? Classes.activeLink : Classes.item}
                     >Settings</NavLink>
                     {/*<a href='/settings'>Settings</a>*/}
+                </div>
+                <div>
+                    <NavLink to={'/friends'}>
+                        Friends
+                    </NavLink>
+                    <Routes>
+                        <Route path={"/friends"} element={<Friends friends={props.friends}/>}/>
+                    </Routes>
+
                 </div>
             </div>
         </nav>

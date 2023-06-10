@@ -1,6 +1,7 @@
 import React from "react";
 import {Pocts} from "./Pocts/Pocts";
-import {PostsDataType} from "../../../index";
+import {PostsDataType} from "../../../redux/state";
+
 
 
 

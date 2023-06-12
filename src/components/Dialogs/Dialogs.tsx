@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
@@ -9,6 +9,12 @@ type DialogsPropsType = {
 }
 
 export const Dialogs = (props: DialogsPropsType) => {
+    const mapLink = useRef<HTMLTextAreaElement>(null)
+    const addmessage = () =>{
+        if(mapLink.current !== null){
+            console.log(mapLink.current.value)
+        }
+    }
     const dialogItemElements = props.messagesPage.dialogsData.map(el => <DialogItem name={el.name} id={el.id}/>)
     const messageElements = props.messagesPage.messagesData.map(el => <Message message={el.message}/>)
     return (
@@ -18,6 +24,10 @@ export const Dialogs = (props: DialogsPropsType) => {
             </div>
             <div className={s.message} onClick={()=>alert("Hey")}>
                 {messageElements}
+            </div>
+            <div>
+                <textarea ref={mapLink}></textarea>
+                <button onClick={addmessage}>Add</button>
             </div>
         </div>
     );

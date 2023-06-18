@@ -3,12 +3,9 @@ import {Pocts} from "./Pocts/Pocts";
 import {PostsDataType} from "../../../redux/state";
 
 
-
-
-
-
 type PostsDataPropsType = {
     postsData: PostsDataType[]
+    addPost: (newMessage: string) => void
 }
 
 export const MyPosts = (props: PostsDataPropsType) => {
@@ -16,10 +13,13 @@ export const MyPosts = (props: PostsDataPropsType) => {
 
     let newPostElement = useRef<HTMLTextAreaElement>(null)
     let addPost = () => {
+        debugger
         if(newPostElement.current !== null){
             let text = newPostElement.current.value
-            console.log(text)
+            // console.log(text)
+            props.addPost(text)
         }
+
     }
 
 
@@ -40,6 +40,7 @@ export const MyPosts = (props: PostsDataPropsType) => {
             <div>
                 <button onClick={addPost}>Add Post</button>
             </div>
+
 
             <div >
                 {poctsElements}

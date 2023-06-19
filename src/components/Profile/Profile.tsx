@@ -10,7 +10,7 @@ type PostsDataPropsType = {
     profilePage: ProfilePageType
     addPost: (newMessage: string) => void
 }
-export const Profile = (props: PostsDataPropsType) => {
+export const Profile:React.FC<PostsDataPropsType> = (props) => {
     return (
         <div>
             <ProfileInfo/>

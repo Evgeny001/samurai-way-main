@@ -20,6 +20,7 @@ export type RootStateType = {
 }
 export type ProfilePageType = {
     postsData: PostsDataType[]
+    newPostText: string
 }
 export type MessagesPageType = {
     dialogsData: DialogsDataType[]
@@ -37,7 +38,8 @@ export type FriendsType = {
         postsData: [
             {id: 1, message: 'Hi, how are you', likes: 15},
             {id: 2, message: 'It is my first post', likes: 20}
-        ]
+        ],
+        newPostText: 'it-kamasutra.com',
     },
     messagesPage: {
         dialogsData: [
@@ -62,13 +64,31 @@ export type FriendsType = {
         ]
     }
 }
-export const addPost = (postMessage: string) => {
+// export const addPost = (postMessage: string) => {
+//     debugger
+//     const newPost: PostsDataType = {
+//         id: 5,
+//         message: postMessage,
+//         likes: 15
+//     }
+//     state.profilePage.postsData.push(newPost)
+//     rerenderEntireTree(state)
+// }
+export const addPost = () => {
     debugger
     const newPost: PostsDataType = {
         id: 5,
-        message: postMessage,
+        message: state.profilePage.newPostText ,
         likes: 15
     }
     state.profilePage.postsData.push(newPost)
+    state.profilePage.newPostText= ""
     rerenderEntireTree(state)
 }
+
+export const updateNewPostText = (newText : string) => {
+    state.profilePage.newPostText=newText
+    rerenderEntireTree(state)
+}
+// @ts-ignore
+window.state = state

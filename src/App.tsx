@@ -3,32 +3,33 @@ import './App.css';
 import {Header} from "./components/Header/Header";
 import {Profile} from "./components/Profile/Profile";
 import {Navbar} from "./components/Navbar/Navbar";
-import { Route, Routes} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import {Dialogs} from "./components/Dialogs/Dialogs";
-import {RootStateType} from "./redux/state";
+import {StoreType} from "./redux/state";
+
 
 type AppPropsType = {
-    appState: RootStateType
-    // addPost: (newMessage: string) => void
-    addPost: () => void
-    updateNewPostText: (newText : string) => void
+    store: StoreType
 }
-function App(props:AppPropsType) {
-    return (
 
+function App(props: AppPropsType) {
+
+    const state = props.store.getState()
+
+    return (
         <div className='app-wrapper'>
             <Header/>
 
-            <Navbar friends={props.appState.sidebar.friends}/>
+            <Navbar friends={state.sidebar.friends}/>
 
-            <div className={'app-wrapper-content'} >
+            <div className={'app-wrapper-content'}>
                 <Routes>
-                    <Route path="/profile" element={<Profile profilePage={props.appState.profilePage}
-                                                             addPost={props.addPost}
-                                                             newPostText={props.appState.profilePage.newPostText}
-                                                             updateNewPostText={props.updateNewPostText} />}/>
+                    <Route path="/profile" element={<Profile profilePage={state.profilePage}
+                                                             addPost={props.store.addPost.bind(props.store)}
+                                                             newPostText={state.profilePage.newPostText}
+                                                             updateNewPostText={props.store.updateNewPostText.bind(props.store)}/>}/>
                     <Route path="/dialogs/*"
-                           element={<Dialogs messagesPage={props.appState.messagesPage}/>}/>
+                           element={<Dialogs messagesPage={state.messagesPage}/>}/>
 
                 </Routes>
 

@@ -1,10 +1,4 @@
-let rerenderEntireTree = () => {
-    console.log('State changed')
-}
 
-export let subscribe = (observer: ()=> void) => {
-    rerenderEntireTree =  observer
-}
 
 export type DialogsDataType = {
     name: string
@@ -39,37 +33,116 @@ export type FriendsType = {
     name: string
     id: number
 }
-    export const state: RootStateType = {
-    profilePage: {
-        postsData: [
-            {id: 1, message: 'Hi, how are you', likes: 15},
-            {id: 2, message: 'It is my first post', likes: 20}
-        ],
-        newPostText: 'it-kamasutra.com',
+export type StoreType = {
+    _state: RootStateType
+    updateNewPostText: (newText: string) => void
+    addPost: () => void
+    rerenderEntireTree: () => void
+    subscribe: (observer: () => void) => void
+    getState:() =>  RootStateType
+}
+export type ActionType = {}
+export let store: StoreType = {
+    _state: {
+        profilePage: {
+            postsData: [
+                {id: 1, message: 'Hi, how are you', likes: 15},
+                {id: 2, message: 'It is my first post', likes: 20}
+            ],
+            newPostText: 'it-kamasutra.com',
+        },
+        messagesPage: {
+            dialogsData: [
+                {id: 1, name: 'Dinich'},
+                {id: 2, name: 'Andrey'},
+                {id: 4, name: 'Sasha'},
+                {id: 4, name: 'Sveta'},
+                {id: 5, name: 'Victor'},
+                {id: 6, name: 'Valera'}
+            ],
+            messagesData: [
+                {id: 1, message: 'Hello'},
+                {id: 2, message: 'How is your IT-kamasutra?'},
+                {id: 3, message: 'Yo'}
+            ]
+        },
+        sidebar: {
+            friends: [
+                {id: 2, name: 'Andrey'},
+                {id: 4, name: 'Sasha'},
+                {id: 4, name: 'Sveta'},
+            ]
+        }
     },
-    messagesPage: {
-        dialogsData: [
-            {id: 1, name: 'Dinich'},
-            {id: 2, name: 'Andrey'},
-            {id: 4, name: 'Sasha'},
-            {id: 4, name: 'Sveta'},
-            {id: 5, name: 'Victor'},
-            {id: 6, name: 'Valera'}
-        ],
-        messagesData: [
-            {id: 1, message: 'Hello'},
-            {id: 2, message: 'How is your IT-kamasutra?'},
-            {id: 3, message: 'Yo'}
-        ]
+    rerenderEntireTree() {
+        console.log('State changed')
     },
-    sidebar: {
-        friends: [
-            {id: 2, name: 'Andrey'},
-            {id: 4, name: 'Sasha'},
-            {id: 4, name: 'Sveta'},
-        ]
+    addPost() {
+        debugger
+        const newPost: PostsDataType = {
+            id: 5,
+            message: this._state.profilePage.newPostText,
+            likes: 15
+        }
+        this._state.profilePage.postsData.push(newPost)
+        this._state.profilePage.newPostText = ""
+        this.rerenderEntireTree()
+    },
+    updateNewPostText(newText: string) {
+        this._state.profilePage.newPostText = newText
+        this.rerenderEntireTree()
+    },
+    subscribe(observer: () => void) {
+        this.rerenderEntireTree = observer
+    },
+    getState(){
+        return this._state
     }
 }
+
+// @ts-ignore
+window.store = store
+
+// let rerenderEntireTree = () => {
+//     console.log('State changed')
+// }
+//
+// export let subscribe = (observer: () => void) => {
+//     rerenderEntireTree = observer
+// }
+
+
+// export const state: RootStateType = {
+//     profilePage: {
+//         postsData: [
+//             {id: 1, message: 'Hi, how are you', likes: 15},
+//             {id: 2, message: 'It is my first post', likes: 20}
+//         ],
+//         newPostText: 'it-kamasutra.com',
+//     },
+//     messagesPage: {
+//         dialogsData: [
+//             {id: 1, name: 'Dinich'},
+//             {id: 2, name: 'Andrey'},
+//             {id: 4, name: 'Sasha'},
+//             {id: 4, name: 'Sveta'},
+//             {id: 5, name: 'Victor'},
+//             {id: 6, name: 'Valera'}
+//         ],
+//         messagesData: [
+//             {id: 1, message: 'Hello'},
+//             {id: 2, message: 'How is your IT-kamasutra?'},
+//             {id: 3, message: 'Yo'}
+//         ]
+//     },
+//     sidebar: {
+//         friends: [
+//             {id: 2, name: 'Andrey'},
+//             {id: 4, name: 'Sasha'},
+//             {id: 4, name: 'Sveta'},
+//         ]
+//     }
+// }
 // export const addPost = (postMessage: string) => {
 //     debugger
 //     const newPost: PostsDataType = {
@@ -80,21 +153,19 @@ export type FriendsType = {
 //     state.profilePage.postsData.push(newPost)
 //     rerenderEntireTree(state)
 // }
-export const addPost = () => {
-    debugger
-    const newPost: PostsDataType = {
-        id: 5,
-        message: state.profilePage.newPostText ,
-        likes: 15
-    }
-    state.profilePage.postsData.push(newPost)
-    state.profilePage.newPostText= ""
-    rerenderEntireTree()
-}
-
-export const updateNewPostText = (newText : string) => {
-    state.profilePage.newPostText=newText
-    rerenderEntireTree()
-}
-// @ts-ignore
-window.state = state
+// export const addPost = () => {
+//     debugger
+//     const newPost: PostsDataType = {
+//         id: 5,
+//         message: state.profilePage.newPostText,
+//         likes: 15
+//     }
+//     state.profilePage.postsData.push(newPost)
+//     state.profilePage.newPostText = ""
+//     rerenderEntireTree()
+// }
+//
+// export const updateNewPostText = (newText: string) => {
+//     state.profilePage.newPostText = newText
+//     rerenderEntireTree()
+// }

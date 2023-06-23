@@ -1,4 +1,10 @@
-import {rerenderEntireTree} from "../render";
+let rerenderEntireTree = () => {
+    console.log('State changed')
+}
+
+export let subscribe = (observer: ()=> void) => {
+    rerenderEntireTree =  observer
+}
 
 export type DialogsDataType = {
     name: string
@@ -83,12 +89,12 @@ export const addPost = () => {
     }
     state.profilePage.postsData.push(newPost)
     state.profilePage.newPostText= ""
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 }
 
 export const updateNewPostText = (newText : string) => {
     state.profilePage.newPostText=newText
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 }
 // @ts-ignore
 window.state = state

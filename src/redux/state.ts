@@ -1,5 +1,3 @@
-
-
 export type DialogsDataType = {
     name: string
     id: number
@@ -35,13 +33,22 @@ export type FriendsType = {
 }
 export type StoreType = {
     _state: RootStateType
-    updateNewPostText: (newText: string) => void
-    addPost: () => void
+    _updateNewPostText: (newText: string) => void
+    _addPost: () => void
     rerenderEntireTree: () => void
     subscribe: (observer: () => void) => void
-    getState:() =>  RootStateType
+    getState: () => RootStateType
+    dispatch: (action: ActionTypes) => void
 }
-export type ActionType = {}
+export type AddPostActionType = {
+    type: 'ADD_POST'
+    newPostText: string
+}
+export type  updateNewPostTextActionType = {
+    type: 'UPDATE_NEW_POST_TEXT'
+    newText: string
+}
+export type ActionTypes = AddPostActionType | updateNewPostTextActionType
 export let store: StoreType = {
     _state: {
         profilePage: {
@@ -77,7 +84,7 @@ export let store: StoreType = {
     rerenderEntireTree() {
         console.log('State changed')
     },
-    addPost() {
+    _addPost() {
         debugger
         const newPost: PostsDataType = {
             id: 5,
@@ -88,16 +95,23 @@ export let store: StoreType = {
         this._state.profilePage.newPostText = ""
         this.rerenderEntireTree()
     },
-    updateNewPostText(newText: string) {
+    _updateNewPostText(newText: string) {
         this._state.profilePage.newPostText = newText
         this.rerenderEntireTree()
     },
     subscribe(observer: () => void) {
         this.rerenderEntireTree = observer
     },
-    getState(){
+    getState() {
         return this._state
-    }
+    },
+    dispatch(action: ActionTypes) {
+        if (action.type === 'ADD_POST')
+            this._addPost()
+        else if (action.type === 'UPDATE_NEW_POST_TEXT') {
+            this._updateNewPostText(action.newText)
+        }
+    },
 }
 
 // @ts-ignore

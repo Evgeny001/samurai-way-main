@@ -16,6 +16,7 @@ function App(props: AppPropsType) {
 
     const state = props.store.getState()
 
+
     return (
         <div className='app-wrapper'>
             <Header/>
@@ -27,8 +28,7 @@ function App(props: AppPropsType) {
                     <Route path="/profile" element={<Profile profilePage={state.profilePage}
                                                              newPostText={state.profilePage.newPostText}
                                                              dispatch={props.store.dispatch.bind(props.store)}/>}/>
-                    <Route path="/dialogs/*"
-                           element={<Dialogs messagesPage={state.messagesPage}/>}/>
+                    <Route path="/dialogs/*" element={<Dialogs store={props.store}/>}/>
 
                 </Routes>
 

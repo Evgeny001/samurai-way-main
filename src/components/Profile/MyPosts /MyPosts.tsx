@@ -1,11 +1,10 @@
 import React, {ChangeEvent} from 'react'
 import {Pocts} from "./Pocts/Pocts";
-import {ActionTypes, PostsDataType} from "../../../redux/state";
+import {ActionTypes, addPostActionCreater, PostsDataType, updateNewPostTextActionCreator,} from "../../../redux/state";
 
 
 type PostsDataPropsType = {
     postsData: PostsDataType[]
-    // addPost: (newMessage: string) => void
     newPostText: string
     dispatch: (action: ActionTypes) => void
 }
@@ -13,10 +12,11 @@ type PostsDataPropsType = {
 export const MyPosts = (props: PostsDataPropsType) => {
     const poctsElements = props.postsData.map(el => <Pocts message={el.message} likes={el.likes}/>)
 
+
     // let newPostElement = useRef<HTMLTextAreaElement>(null)
     let newPostElement = React.createRef<HTMLTextAreaElement>()
     let addPost = () => {
-        props.dispatch({type: "ADD_POST", newPostText: props.newPostText})
+        props.dispatch(addPostActionCreater())
     }
     // let addPost = () => {
     //     props.addPost(props.newPostText)
@@ -46,7 +46,7 @@ export const MyPosts = (props: PostsDataPropsType) => {
     // }
     let onPostChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
         let text = event.currentTarget.value
-        props.dispatch({type: 'UPDATE_NEW_POST_TEXT', newText: text})
+        props.dispatch(updateNewPostTextActionCreator(text))
     }
     return (
         <div>

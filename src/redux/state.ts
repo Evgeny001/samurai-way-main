@@ -23,6 +23,7 @@ export type ProfilePageType = {
 export type MessagesPageType = {
     dialogsData: DialogsDataType[]
     messagesData: MessagesDataType[]
+    newMessageBody: string
 }
 export type SidebarType = {
     friends: FriendsType[]
@@ -35,20 +36,39 @@ export type StoreType = {
     _state: RootStateType
     _updateNewPostText: (newText: string) => void
     _addPost: () => void
-    rerenderEntireTree: () => void
+    _rerenderEntireTree: () => void
     subscribe: (observer: () => void) => void
     getState: () => RootStateType
     dispatch: (action: ActionTypes) => void
 }
 export type AddPostActionType = {
     type: 'ADD_POST'
-    newPostText: string
 }
-export type  updateNewPostTextActionType = {
+export type  UpdateNewPostTextActionType = {
     type: 'UPDATE_NEW_POST_TEXT'
     newText: string
 }
-export type ActionTypes = AddPostActionType | updateNewPostTextActionType
+export type  UpdateNewMessageBodyType = {
+    type: 'UPDATE_NEW_MESSAGE_BODY'
+    newMessageBody: string
+}
+export type SendMessageType = {
+    type: 'SEND_MESSAGE'
+}
+export type ActionTypes = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageBodyType  | SendMessageType
+
+export const addPostActionCreater  = (): AddPostActionType => {
+    return {type: "ADD_POST"}
+}
+export const updateNewPostTextActionCreator = ( newPostText: string): UpdateNewPostTextActionType => {
+    return { type: "UPDATE_NEW_POST_TEXT", newText: newPostText }
+}
+export const updateNewMessageBodyActionCreator = ( newMessageBody: string): UpdateNewMessageBodyType => {
+    return { type: "UPDATE_NEW_MESSAGE_BODY", newMessageBody: newMessageBody }
+}
+export const sendMessageActionCreator = (): SendMessageType => {
+    return { type: 'SEND_MESSAGE' }
+}
 export let store: StoreType = {
     _state: {
         profilePage: {
@@ -71,7 +91,8 @@ export let store: StoreType = {
                 {id: 1, message: 'Hello'},
                 {id: 2, message: 'How is your IT-kamasutra?'},
                 {id: 3, message: 'Yo'}
-            ]
+            ],
+            newMessageBody: ""
         },
         sidebar: {
             friends: [
@@ -81,7 +102,7 @@ export let store: StoreType = {
             ]
         }
     },
-    rerenderEntireTree() {
+    _rerenderEntireTree() {
         console.log('State changed')
     },
     _addPost() {
@@ -93,14 +114,14 @@ export let store: StoreType = {
         }
         this._state.profilePage.postsData.push(newPost)
         this._state.profilePage.newPostText = ""
-        this.rerenderEntireTree()
+        this._rerenderEntireTree()
     },
     _updateNewPostText(newText: string) {
         this._state.profilePage.newPostText = newText
-        this.rerenderEntireTree()
+        this._rerenderEntireTree()
     },
     subscribe(observer: () => void) {
-        this.rerenderEntireTree = observer
+        this._rerenderEntireTree = observer
     },
     getState() {
         return this._state
@@ -110,6 +131,15 @@ export let store: StoreType = {
             this._addPost()
         else if (action.type === 'UPDATE_NEW_POST_TEXT') {
             this._updateNewPostText(action.newText)
+        }
+        else if (action.type === 'UPDATE_NEW_MESSAGE_BODY') {
+            this._state.messagesPage.newMessageBody = action.newMessageBody
+            this._rerenderEntireTree()
+        } else if (action.type === "SEND_MESSAGE"){
+              let body = this._state.messagesPage.newMessageBody
+            this._state.messagesPage.newMessageBody = ''
+            this._state.messagesPage.messagesData.push({id: 6, message: body})
+            this._rerenderEntireTree()
         }
     },
 }

@@ -1,3 +1,6 @@
+import {profileReducer} from "./profileReducer";
+import {dialogsReducer} from "./dialogsReducer";
+
 export type DialogsDataType = {
     name: string
     id: number
@@ -34,8 +37,6 @@ export type FriendsType = {
 }
 export type StoreType = {
     _state: RootStateType
-    _updateNewPostText: (newText: string) => void
-    _addPost: () => void
     _rerenderEntireTree: () => void
     subscribe: (observer: () => void) => void
     getState: () => RootStateType
@@ -57,18 +58,6 @@ export type SendMessageType = {
 }
 export type ActionTypes = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageBodyType  | SendMessageType
 
-export const addPostActionCreater  = (): AddPostActionType => {
-    return {type: "ADD_POST"}
-}
-export const updateNewPostTextActionCreator = ( newPostText: string): UpdateNewPostTextActionType => {
-    return { type: "UPDATE_NEW_POST_TEXT", newText: newPostText }
-}
-export const updateNewMessageBodyActionCreator = ( newMessageBody: string): UpdateNewMessageBodyType => {
-    return { type: "UPDATE_NEW_MESSAGE_BODY", newMessageBody: newMessageBody }
-}
-export const sendMessageActionCreator = (): SendMessageType => {
-    return { type: 'SEND_MESSAGE' }
-}
 export let store: StoreType = {
     _state: {
         profilePage: {
@@ -105,21 +94,7 @@ export let store: StoreType = {
     _rerenderEntireTree() {
         console.log('State changed')
     },
-    _addPost() {
-        debugger
-        const newPost: PostsDataType = {
-            id: 5,
-            message: this._state.profilePage.newPostText,
-            likes: 15
-        }
-        this._state.profilePage.postsData.push(newPost)
-        this._state.profilePage.newPostText = ""
-        this._rerenderEntireTree()
-    },
-    _updateNewPostText(newText: string) {
-        this._state.profilePage.newPostText = newText
-        this._rerenderEntireTree()
-    },
+
     subscribe(observer: () => void) {
         this._rerenderEntireTree = observer
     },
@@ -127,20 +102,9 @@ export let store: StoreType = {
         return this._state
     },
     dispatch(action: ActionTypes) {
-        if (action.type === 'ADD_POST')
-            this._addPost()
-        else if (action.type === 'UPDATE_NEW_POST_TEXT') {
-            this._updateNewPostText(action.newText)
-        }
-        else if (action.type === 'UPDATE_NEW_MESSAGE_BODY') {
-            this._state.messagesPage.newMessageBody = action.newMessageBody
-            this._rerenderEntireTree()
-        } else if (action.type === "SEND_MESSAGE"){
-              let body = this._state.messagesPage.newMessageBody
-            this._state.messagesPage.newMessageBody = ''
-            this._state.messagesPage.messagesData.push({id: 6, message: body})
-            this._rerenderEntireTree()
-        }
+   this._state.profilePage = profileReducer(this._state.profilePage, action)
+   this._state.messagesPage = dialogsReducer(this._state.messagesPage, action)
+        this._rerenderEntireTree()
     },
 }
 

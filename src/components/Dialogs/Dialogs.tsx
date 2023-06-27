@@ -2,9 +2,9 @@ import React, {ChangeEvent, useRef} from 'react';
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {sendMessageActionCreator, StoreType, updateNewMessageBodyActionCreator,
+import {StoreType} from "../../redux/state";
+import {sendMessageActionCreator, updateNewMessageBodyActionCreator} from "../../redux/dialogsReducer";
 
-} from "../../redux/state";
 
 type DialogsPropsType = {
     store: StoreType
@@ -27,7 +27,7 @@ export const Dialogs = (props: DialogsPropsType) => {
             <div className={s.dialogsItems}>
                 {dialogItemElements}
             </div>
-            <div className={s.message} onClick={()=>alert("Hey")}>
+            <div className={s.message}>
                 {messageElements}
             </div>
             <div>

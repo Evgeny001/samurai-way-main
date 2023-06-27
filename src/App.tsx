@@ -16,7 +16,6 @@ function App(props: AppPropsType) {
 
     const state = props.store.getState()
 
-
     return (
         <div className='app-wrapper'>
             <Header/>

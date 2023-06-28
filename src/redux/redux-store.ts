@@ -12,5 +12,6 @@ export let reducers = combineReducers(
         sidebar: sitebarReducer
     }
 )
-
+export type AppRootStateType = ReturnType<typeof reducers>
 export let store = createStore(reducers)
+export type StoreType = typeof store

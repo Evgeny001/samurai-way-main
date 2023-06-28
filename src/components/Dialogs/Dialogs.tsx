@@ -1,27 +1,26 @@
-import React, {ChangeEvent, useRef} from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {StoreType} from "../../redux/state";
-import {sendMessageActionCreator, updateNewMessageBodyActionCreator} from "../../redux/dialogsReducer";
+import {MessagesPageType} from "../../redux/state";
+
 
 
 type DialogsPropsType = {
-    store: StoreType
+    sendMessage: () => void
+    updateNewMessageBody: (taxt: string) => void
+    state: MessagesPageType
 }
 export const Dialogs = (props: DialogsPropsType) => {
-    let state = props.store.getState().messagesPage
-    const mapLink = useRef<HTMLTextAreaElement>(null)
-    const onSendMessageClick = () =>{
-           props.store.dispatch(sendMessageActionCreator() )
+    const onSendMessageClickHandler = (event: React.MouseEvent<HTMLButtonElement>) =>{
+        props.sendMessage()
     }
-    const onMessageChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        props.store.dispatch(updateNewMessageBodyActionCreator(event.currentTarget.value))
-
+    const onMessageChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        props.updateNewMessageBody(event.currentTarget.value)
     }
-    const dialogItemElements = state.dialogsData.map(el => <DialogItem name={el.name} id={el.id}/>)
-    const messageElements = state.messagesData.map(el => <Message message={el.message}/>)
-    const newMessageBody = state.newMessageBody
+    const dialogItemElements = props.state.dialogsData.map(el => <DialogItem name={el.name} id={el.id}/>)
+    const messageElements = props.state.messagesData.map(el => <Message message={el.message}/>)
+    const newMessageBody = props.state.newMessageBody
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
@@ -31,8 +30,8 @@ export const Dialogs = (props: DialogsPropsType) => {
                 {messageElements}
             </div>
             <div>
-                <textarea ref={mapLink} value={newMessageBody} onChange={onMessageChange}></textarea>
-                <button onClick={onSendMessageClick}>Send</button>
+                <textarea value={newMessageBody} onChange={onMessageChangeHandler}></textarea>
+                <button onClick={onSendMessageClickHandler}>Send</button>
             </div>
         </div>
     );

@@ -5,15 +5,15 @@ import {Profile} from "./components/Profile/Profile";
 import {Navbar} from "./components/Navbar/Navbar";
 import {Route, Routes} from "react-router-dom";
 import {Dialogs} from "./components/Dialogs/Dialogs";
-import {StoreType} from "./redux/state";
+
 
 
 type AppPropsType = {
-    store: StoreType
+    store: any
 }
 
 function App(props: AppPropsType) {
-
+       debugger
     const state = props.store.getState()
 
     return (

@@ -4,9 +4,8 @@ import {Header} from "./components/Header/Header";
 import {Profile} from "./components/Profile/Profile";
 import {Navbar} from "./components/Navbar/Navbar";
 import {Route, Routes} from "react-router-dom";
-
-import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {AppRootStateType, StoreType} from "./redux/redux-store";
+import {SuperDialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 type AppPropsType = {
     store: StoreType
@@ -28,7 +27,7 @@ function App(props: AppPropsType) {
                                                              newPostText={state.profilePage.newPostText}
                                                              dispatch={props.store.dispatch.bind(props.store)}
                                                              store={props.store}/>}/>
-                    <Route path="/dialogs/*" element={<DialogsContainer store={props.store}/>}/>
+                    <Route path="/dialogs/*" element={<SuperDialogsContainer  />}/>
 
                 </Routes>
 

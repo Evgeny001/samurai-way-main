@@ -1,29 +1,36 @@
 import React from 'react'
 import {addPostActionCreater, updateNewPostTextActionCreator} from "../../../redux/profileReducer";
 import {MyPosts} from "./MyPosts";
-import {StoreType} from "../../../redux/redux-store";
+import {AppRootStateType} from "../../../redux/redux-store";
+import {connect} from "react-redux";
+import {Dispatch} from "redux";
+import {PostsDataType} from "../../../redux/state";
 
-
-type PostsDataPropsType = {
-    store: StoreType
+type mapStateToProps = {
+    postsData: PostsDataType[],
+    newPostText: string
+}
+type mapDispatchToProps = {
+    updaNewPostText: (text: string) => void
+    addPost: () => void
 }
 
-export const MyPostsContainer = (props: PostsDataPropsType) => {
-
-    let state = props.store.getState()
-    let addPost = () => {
-        props.store.dispatch(addPostActionCreater())
+const mapStateToProps = (state: AppRootStateType): mapStateToProps => {
+    return {
+        postsData: state.profilePage.postsData,
+        newPostText: state.profilePage.newPostText
     }
-
-    let onPostChange = (text: string) => {
-        props.store.dispatch(updateNewPostTextActionCreator(text))
-    }
-    return (
-        <div>
-       <MyPosts postsData={state.profilePage.postsData}
-                newPostText={state.profilePage.newPostText}
-                updaNewPostText={onPostChange}
-                addPost={addPost}/>
-        </div>
-    )
 }
+const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToProps => {
+    return {
+        updaNewPostText: (text: string) => {
+            dispatch(updateNewPostTextActionCreator(text))
+        },
+        addPost: () => dispatch(addPostActionCreater())
+            }
+}
+
+export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps ) (MyPosts)
+
+//(dispatch: Dispatch) - import {Dispatch} from "redux"; обязательно из redux!!!
+// эта типизация проверяет, что бы мы Dispatch именно Action - объект у которого есть свойство type.

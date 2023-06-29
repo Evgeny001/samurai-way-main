@@ -1,9 +1,8 @@
 import React from "react"
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import { MyPostsContainer } from "./MyPosts /MyPostsContainer";
 import {StoreType} from "../../redux/redux-store";
-
 import {ActionTypes, ProfilePageType} from "../../redux/state";
+import {MyPostsContainer} from "./MyPosts /MyPostsContainer";
 
 
 type PostsDataPropsType = {
@@ -18,8 +17,7 @@ export const Profile:React.FC<PostsDataPropsType> = (props) => {
     return (
         <div>
             <ProfileInfo/>
-            <MyPostsContainer store={props.store}
-            />
+            <MyPostsContainer/>
         </div>
 
     )

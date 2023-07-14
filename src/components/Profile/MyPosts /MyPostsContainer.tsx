@@ -11,7 +11,7 @@ type mapStateToProps = {
     newPostText: string
 }
 type mapDispatchToProps = {
-    updaNewPostText: (text: string) => void
+    updateNewPostText: (text: string) => void
     addPost: () => void
 }
 
@@ -23,7 +23,7 @@ const mapStateToProps = (state: AppRootStateType): mapStateToProps => {
 }
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToProps => {
     return {
-        updaNewPostText: (text: string) => {
+        updateNewPostText: (text: string) => {
             dispatch(updateNewPostTextActionCreator(text))
         },
         addPost: () => dispatch(addPostActionCreater())

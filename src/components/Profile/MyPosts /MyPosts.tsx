@@ -8,7 +8,7 @@ import {PostsDataType} from "../../../redux/state";
 type PostsDataPropsType = {
     postsData: PostsDataType[]
     newPostText: string
-    updaNewPostText: (text: string) => void
+    updateNewPostText: (text: string) => void
     addPost: () => void
 
 }
@@ -21,7 +21,7 @@ export const MyPosts = (props: PostsDataPropsType) => {
 
     let onPostChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
         let text = event.currentTarget.value
-        props.updaNewPostText(text)
+        props.updateNewPostText(text)
     }
     return (
         <div>

@@ -3,7 +3,6 @@ import {
     AddPostActionType,
     PostsDataType,
     ProfilePageType,
-    RootStateType,
     UpdateNewPostTextActionType
 } from "./state";
 
@@ -16,19 +15,23 @@ let initailState: ProfilePageType = {
 }
 
 export const profileReducer = (state = initailState, action: ActionTypes ): ProfilePageType  => {
-    switch (action.type){
-        case 'ADD_POST':
+    switch (action.type) {
+        case 'ADD_POST': {
             const newPost: PostsDataType = {
                 id: 5,
                 message: state.newPostText,
                 likes: 15
             }
-            state.postsData.push(newPost)
-            state.newPostText = ""
-            return state
-        case 'UPDATE_NEW_POST_TEXT':
-            state.newPostText = action.newText
-            return state
+            let stateCopy = {...state}
+            stateCopy.postsData = [...state.postsData]
+            stateCopy.postsData.push(newPost)
+            stateCopy.newPostText = ""
+            return stateCopy
+    }
+        case 'UPDATE_NEW_POST_TEXT':   {
+            let  stateCopy = {...state}
+            stateCopy.newPostText = action.newText
+            return stateCopy   }
         default: return state
     }
 };

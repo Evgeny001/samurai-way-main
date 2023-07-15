@@ -11,7 +11,7 @@ let initailState: ProfilePageType = {
         {id: 1, message: 'Hi, how are you', likes: 15},
         {id: 2, message: 'It is my first post', likes: 20}
     ],
-    newPostText: 'it-kamasutra.com',
+    newPostText: '',
 }
 
 export const profileReducer = (state = initailState, action: ActionTypes ): ProfilePageType  => {
@@ -22,16 +22,11 @@ export const profileReducer = (state = initailState, action: ActionTypes ): Prof
                 message: state.newPostText,
                 likes: 15
             }
-            let stateCopy = {...state}
-            stateCopy.postsData = [...state.postsData]
-            stateCopy.postsData.push(newPost)
-            stateCopy.newPostText = ""
-            return stateCopy
+            return {...state, newPostText:'', postsData: [...state.postsData, newPost]}
     }
         case 'UPDATE_NEW_POST_TEXT':   {
-            let  stateCopy = {...state}
-            stateCopy.newPostText = action.newText
-            return stateCopy   }
+            return {...state, newPostText: action.newText}
+        }
         default: return state
     }
 };

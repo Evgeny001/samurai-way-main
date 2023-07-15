@@ -12,7 +12,7 @@ type DialogsPropsType = {
     state: MessagesPageType
 }
 export const Dialogs = (props: DialogsPropsType) => {
-    const onSendMessageClickHandler = (event: React.MouseEvent<HTMLButtonElement>) =>{
+    const onSendMessageClickHandler = () =>{
         props.sendMessage()
     }
     const onMessageChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -21,6 +21,7 @@ export const Dialogs = (props: DialogsPropsType) => {
     const dialogItemElements = props.state.dialogsData.map(el => <DialogItem name={el.name} id={el.id}/>)
     const messageElements = props.state.messagesData.map(el => <Message message={el.message}/>)
     const newMessageBody = props.state.newMessageBody
+    debugger
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>

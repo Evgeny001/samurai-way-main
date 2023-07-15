@@ -12,7 +12,7 @@ type AppPropsType = {
 }
 
 function App(props: AppPropsType) {
-       debugger
+
     const state:AppRootStateType = props.store.getState()
 
     return (

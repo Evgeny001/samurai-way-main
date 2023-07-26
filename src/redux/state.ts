@@ -1,64 +1,66 @@
 import {profileReducer} from "./profileReducer";
 import {dialogsReducer} from "./dialogsReducer";
+import {FollowActionType, setUsersActionType, UnFollowActionType} from "./usersReducer";
 
-export type DialogsDataType = {
+type DialogsDataType = {
     name: string
     id: number
 }
-export type MessagesDataType = {
+type MessagesDataType = {
     message: string
     id: number
 }
-export type PostsDataType = {
+type PostsDataType = {
     message: string
     likes: number
     id: number
 }
-export type RootStateType = {
+type RootStateType = {
     profilePage: ProfilePageType
     messagesPage: MessagesPageType
     sidebar: SidebarType
 }
-export type ProfilePageType = {
+type ProfilePageType = {
     postsData: PostsDataType[]
     newPostText: string
 }
-export type MessagesPageType = {
+type MessagesPageType = {
     dialogsData: DialogsDataType[]
     messagesData: MessagesDataType[]
     newMessageBody: string
 }
-export type SidebarType = {
+type SidebarType = {
     friends: FriendsType[]
 }
-export type FriendsType = {
+type FriendsType = {
     name: string
     id: number
 }
-export type StoreType = {
+type StoreType = {
     _state: RootStateType
     _rerenderEntireTree: () => void
     subscribe: (observer: () => void) => void
     getState: () => RootStateType
     dispatch: (action: ActionTypes) => void
 }
-export type AddPostActionType = {
+type AddPostActionType = {
     type: 'ADD_POST'
 }
-export type  UpdateNewPostTextActionType = {
+type  UpdateNewPostTextActionType = {
     type: 'UPDATE_NEW_POST_TEXT'
     newText: string
 }
-export type  UpdateNewMessageBodyType = {
+type  UpdateNewMessageBodyType = {
     type: 'UPDATE_NEW_MESSAGE_BODY'
     newMessageBody: string
 }
-export type SendMessageType = {
+type SendMessageType = {
     type: 'SEND_MESSAGE'
 }
-export type ActionTypes = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageBodyType  | SendMessageType
+type ActionTypes = AddPostActionType | UpdateNewPostTextActionType |
+    UpdateNewMessageBodyType  | SendMessageType | FollowActionType | UnFollowActionType | setUsersActionType
 
-export let store: StoreType = {
+let store: StoreType = {
     _state: {
         profilePage: {
             postsData: [

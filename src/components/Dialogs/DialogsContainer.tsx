@@ -1,11 +1,26 @@
 import React from 'react';
-import {sendMessageActionCreator, updateNewMessageBodyActionCreator} from "../../redux/dialogsReducer";
+import {
+    sendMessageActionCreator,
+    updateNewMessageBodyActionCreator
+} from "../../redux/dialogsReducer";
 import {Dialogs} from "./Dialogs";
 import {AppRootStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
-import {MessagesPageType} from "../../redux/state";
 import {Dispatch} from "redux";
 
+type MessagesPageType = {
+    dialogsData: DialogsDataType[]
+    messagesData: MessagesDataType[]
+    newMessageBody: string
+}
+type DialogsDataType = {
+    name: string
+    id: number
+}
+type MessagesDataType = {
+    message: string
+    id: number
+}
 type mapStateToProps = {
     state: MessagesPageType
 }
@@ -13,6 +28,8 @@ type mapDispatchToProps = {
     sendMessage: () => void
     updateNewMessageBody: (text: string) => void
 }
+
+export type DialogsPropsType = mapStateToProps & mapDispatchToProps
 
 const  mapStateToProps = (state: AppRootStateType): mapStateToProps => {
     return   {

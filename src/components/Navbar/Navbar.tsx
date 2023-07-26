@@ -25,6 +25,9 @@ export const Navbar = (props: FriendsPropsType) => {
                     {/*<a href='/dialogs'>Messages</a>*/}
                 </div>
                 <div>
+                    <NavLink to='/users'>Users</NavLink>
+                </div>
+                <div>
                     <NavLink to='/new'
                              className={navData => navData.isActive ? Classes.activeLink : Classes.item}
                     >New</NavLink>

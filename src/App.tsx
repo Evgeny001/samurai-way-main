@@ -6,6 +6,7 @@ import {Navbar} from "./components/Navbar/Navbar";
 import {Route, Routes} from "react-router-dom";
 import {AppRootStateType, StoreType} from "./redux/redux-store";
 import {SuperDialogsContainer} from "./components/Dialogs/DialogsContainer";
+import {UserContainer} from "./components/Users/UserContainer";
 
 type AppPropsType = {
     store: StoreType
@@ -23,12 +24,9 @@ function App(props: AppPropsType) {
 
             <div className={'app-wrapper-content'}>
                 <Routes>
-                    <Route path="/profile" element={<Profile profilePage={state.profilePage}
-                                                             newPostText={state.profilePage.newPostText}
-                                                             dispatch={props.store.dispatch.bind(props.store)}
-                                                             store={props.store}/>}/>
+                    <Route path="/profile" element={<Profile/>}/>
                     <Route path="/dialogs/*" element={<SuperDialogsContainer  />}/>
-
+                    <Route path='/users/' element={<UserContainer/>}/>
                 </Routes>
 
             </div>

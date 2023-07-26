@@ -1,17 +1,6 @@
 import React, {ChangeEvent} from 'react'
 import {Pocts} from "./Pocts/Pocts";
-import {PostsDataType} from "../../../redux/state";
-
-
-
-
-type PostsDataPropsType = {
-    postsData: PostsDataType[]
-    newPostText: string
-    updateNewPostText: (text: string) => void
-    addPost: () => void
-
-}
+import {PostsDataPropsType} from "./MyPostsContainer";
 
 export const MyPosts = (props: PostsDataPropsType) => {
     const poctsElements = props.postsData.map(el => <Pocts message={el.message} likes={el.likes}/>)

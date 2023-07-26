@@ -1,5 +1,13 @@
-import {ActionTypes, SidebarType} from "./state";
+import {ActionTypes} from "./ActionType";
 
+
+export type SidebarType = {
+    friends: FriendsType[]
+}
+export type FriendsType = {
+    name: string
+    id: number
+}
 let initailState: SidebarType = {
     friends: [
         {id: 2, name: 'Andrey'},

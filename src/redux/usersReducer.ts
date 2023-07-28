@@ -1,6 +1,7 @@
 import {ActionTypes} from "./ActionType";
 
 
+
 export type  FollowActionType = {
     type: 'FOLLOW'
     userId: number
@@ -13,19 +14,29 @@ export type setUsersActionType = {
     type: 'SET-USERS',
     users: UserType[]
 }
-export type LocationType = {
-    city: string
-    country: string
-}
+// export type LocationType = {
+//     city: string
+//     country: string
+// }
+// export type UserType = {
+//     id: number,
+//     followed: boolean,
+//     fullName: string,
+//     status: string,
+//     photoUrl: string
+//     location: LocationType
+// }
 export type UserType = {
-    id: number,
-    followed: boolean,
-    fullName: string,
-    status: string,
-    photoUrl: string
-    location: LocationType
+    name: string
+    id: number
+    uniqueUrlName: null
+    status: null
+    followed: boolean
+    photos: {
+        small: null
+        large: null
+    }
 }
-
 const initialState: initialStateType = {
     users: [
         // {id: 1, followed: true, fullName: "Dmitry", status: "I'm a boss", photoUrl: "https://drevnerus.ru/drevnerus.ru/public_html/wp-content/uploads/2011/12/volhvy-2.jpg" ,
@@ -60,7 +71,6 @@ export const usersReducer = (state:initialStateType = initialState, action: Acti
         }
         default: return state
     }
-
 }
 
 debugger

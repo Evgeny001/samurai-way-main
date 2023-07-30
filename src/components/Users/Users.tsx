@@ -24,15 +24,14 @@ export const Users: React.FC<UsersPropsType> = (props) => {
                 //     {id: 3, followed: true, fullName: "Andrew", status: "I'm a boss",  photoUrl: "https://drevnerus.ru/drevnerus.ru/public_html/wp-content/uploads/2011/12/volhvy-2.jpg",
                 //         location: {city: "Kiev", country: "Ukraine"}}
                 // ]
-
-  debugger
-    if(props.usersPage.users.length === 0){
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-            debugger
-            props.setUsers(response.data.items)})
-        // props.setUsers(users)
-
+    const getUsers = () => {
+        if(props.usersPage.users.length === 0){
+            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+                debugger
+                props.setUsers(response.data.items)})
+        }
     }
+
 
 
     debugger
@@ -48,6 +47,7 @@ export const Users: React.FC<UsersPropsType> = (props) => {
     )
     return (
         <div>
+            <button onClick={getUsers}>Get Users</button>
             {renderUsers}
         </div>
     );

@@ -8,14 +8,12 @@ import axios from "axios";
 type PropsType =  UsersPropsType
 
 export class Users extends React.Component<PropsType> {
-     constructor(props: PropsType) {
-         super(props);
-         alert('New')
-                 axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-                     debugger
-                     this.props.setUsers(response.data.items)})
-
+         componentDidMount() {
+             axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+                 debugger
+                 this.props.setUsers(response.data.items)})
          }
+
     render() {
         return (
             <div>

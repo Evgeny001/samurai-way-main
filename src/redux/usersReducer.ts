@@ -1,4 +1,3 @@
-import {ActionTypes} from "./ActionType";
 
 
 
@@ -14,6 +13,19 @@ export type setUsersActionType = {
     type: 'SET-USERS',
     users: UserType[]
 }
+type SetCurrentPageActionType = {
+    type: 'SET_CURRENT_PAGE'
+    currentPage: number
+}
+type SetTotalUsersCountActionType = {
+    type: 'SET_TOTAL_USERS_COUTN',
+    totalCount: number
+}
+type ActionTypes = FollowActionType
+    | UnFollowActionType
+    | setUsersActionType
+    | SetCurrentPageActionType
+    | SetTotalUsersCountActionType
 // export type LocationType = {
 //     city: string
 //     country: string
@@ -45,13 +57,19 @@ const initialState: initialStateType = {
         //     location: {city: "Moscow", country: "Russian"}},
         // {id: 3, followed: true, fullName: "Andrew", status: "I'm a boss",  photoUrl: "https://drevnerus.ru/drevnerus.ru/public_html/wp-content/uploads/2011/12/volhvy-2.jpg",
         //     location: {city: "Kiev", country: "Ukraine"}}
-    ]
+    ],
+    totalUserCount: 0,
+    pageSize: 100,
+    currentPage: 1
 }
 export type initialStateType = {
     users: Array<UserType>
+    totalUserCount: number
+    pageSize: number
+    currentPage: number
 }
 // export type initialStateType = typeof initialState
-export const usersReducer = (state:initialStateType = initialState, action: ActionTypes ): initialStateType => {
+export const usersReducer = (state:initialStateType = initialState, action: ActionTypes  ): initialStateType => {
     switch (action.type) {
         case "FOLLOW" : {
             return {
@@ -66,9 +84,20 @@ export const usersReducer = (state:initialStateType = initialState, action: Acti
         case 'SET-USERS': {
             return {
                 // ...state, users: [...state.users, ...action.users]
-                ...state, users:  [...action.users]
+                ...state, users:  action.users
             }
         }
+        case 'SET_CURRENT_PAGE': {
+            return {
+                ...state, currentPage: action.currentPage
+            }
+        }
+        case 'SET_TOTAL_USERS_COUTN' : {
+            return {
+                ...state, totalUserCount: action.totalCount
+            }
+        }
+
         default: return state
     }
 }
@@ -84,4 +113,10 @@ export const unFollowAC = (userId: number): UnFollowActionType => {
 }
 export const setUsersAC = (users: UserType[]): setUsersActionType => {
     return {type: 'SET-USERS', users}
+}
+export const setCurrentPageAC = (currentPage: number): SetCurrentPageActionType => {
+    return {type: 'SET_CURRENT_PAGE', currentPage}
+}
+export const setTotalUsersCountAC = (totalCount: number) => {
+   return {type: 'SET_TOTAL_USERS_COUTN', totalCount}
 }

@@ -115,22 +115,22 @@ export const usersReducer = (state:initialStateType = initialState, action: Acti
 
 debugger
 
-export const followAC = (userId: number): FollowActionType => {
+export const followUser = (userId: number): FollowActionType => {
     return {type: 'FOLLOW', userId: userId}
 }
-export const unFollowAC = (userId: number): UnFollowActionType => {
+export const unFollowUser = (userId: number): UnFollowActionType => {
     return {type: 'UNFOLLOW', userId: userId}
 
 }
-export const setUsersAC = (users: UserType[]): setUsersActionType => {
+export const setUsers = (users: UserType[]): setUsersActionType => {
     return {type: 'SET-USERS', users}
 }
-export const setCurrentPageAC = (currentPage: number): SetCurrentPageActionType => {
+export const setCurrentPage = (currentPage: number): SetCurrentPageActionType => {
     return {type: 'SET_CURRENT_PAGE', currentPage}
 }
-export const setTotalUsersCountAC = (totalCount: number): SetTotalUsersCountActionType => {
+export const setTotalUsersCount = (totalCount: number): SetTotalUsersCountActionType => {
    return {type: 'SET_TOTAL_USERS_COUTN', totalCount}
 }
-export const toggleIsFetchingAC = (ifFetching: boolean): ToggleIsFetchingActionType => {
+export const toggleIsFetching = (ifFetching: boolean): ToggleIsFetchingActionType => {
     return {type: 'TOGGLE_IS_FETCHING', ifFetching}
 }

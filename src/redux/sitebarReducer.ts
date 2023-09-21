@@ -1,4 +1,4 @@
-import {ActionTypes} from "./ActionType";
+import {RootActionTypes} from "./ActionType";
 
 
 export type SidebarType = {
@@ -16,6 +16,6 @@ let initailState: SidebarType = {
     ]
 }
 
-export const sitebarReducer = (state = initailState, action: ActionTypes):SidebarType  =>  {
+export const sitebarReducer = (state = initailState, action: RootActionTypes):SidebarType  =>  {
     return state
 }

@@ -99,7 +99,7 @@ const mapStateToProps = (state: AppRootStateType): mapStateToPropsType  => {
 //         unFollowUser: unFollowAC,
 //         setUsers: setUsersAC,
 //         setCurrentPage: setCurrentPageAC,
-//         setTotalUsersCount: setTotalUsersCountAC,                                     
+//         setTotalUsersCount: setTotalUsersCountAC,
 //         toggleIsFetchingAC: toggleIsFetchingAC})(UsersComponent)
 
 export const UserContainer = connect(mapStateToProps, {

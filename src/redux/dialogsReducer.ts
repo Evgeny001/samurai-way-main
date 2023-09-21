@@ -1,4 +1,4 @@
-import {ActionTypes, SendMessageType, UpdateNewMessageBodyType} from "./ActionType";
+import {RootActionTypes, SendMessageType, UpdateNewMessageBodyType} from "./ActionType";
 
 
 export type DialogsDataType = {
@@ -27,7 +27,7 @@ const initailState = {
 }
 export type initailStateType = typeof initailState
 
-export const dialogsReducer = (state: initailStateType = initailState, action: ActionTypes): initailStateType => {
+export const dialogsReducer = (state: initailStateType = initailState, action: RootActionTypes): initailStateType => {
     switch (action.type){
        case 'UPDATE_NEW_MESSAGE_BODY': {
            return  {...state, newMessageBody: action.newMessageBody}

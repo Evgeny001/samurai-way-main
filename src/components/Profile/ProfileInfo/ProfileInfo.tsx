@@ -1,13 +1,30 @@
 import React from 'react';
 import s from './ProfileInfo.module.css'
+import Preloader from "../../Preloader /Preloader";
+import {ProfileResponseType} from "../../../redux/profileReducer";
 
 
-export const ProfileInfo = () => {
+type ProfileInfoPropsType = {
+    profile: ProfileResponseType  | null
+ }
+
+export const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
+    if(!props.profile){
+        return <Preloader/>
+    }
+   
     return (
             <div >
-                <div><img src="https://cdn.pixabay.com/photo/2013/10/09/02/27/lake-192990_1280.jpg" alt="#"/>
-                </div>
+                {/*<div><img src={props.profile.photos.large} alt="#"/>*/}
+                <img style={{width: '20%'}} alt="dw" src={props.profile?.photos.large || ''} />
                 <div className={s.descriptionBlock}>ava+description</div>
+                    <ul>
+                        <li>facebook: {props.profile.contacts.facebook}</li>
+                        <li>vk: {props.profile.contacts.vk}</li>
+                        <li>twitter: {props.profile.contacts.twitter}</li>
+                        <li>instagram: {props.profile.contacts.instagram}</li>
+                        <li>github: {props.profile.contacts.github}</li>
+                    </ul>
         </div>
     );
 };

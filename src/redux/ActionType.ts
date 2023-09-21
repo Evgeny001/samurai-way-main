@@ -1,4 +1,5 @@
 import {FollowActionType, setUsersActionType, UnFollowActionType} from "./usersReducer";
+import {ProfileResponseType} from "./profileReducer";
 
 export type AddPostActionType = {
     type: 'ADD_POST'
@@ -14,5 +15,10 @@ export type  UpdateNewMessageBodyType = {
 export type SendMessageType = {
     type: 'SEND_MESSAGE'
 }
-export type ActionTypes = AddPostActionType | UpdateNewPostTextActionType |
-    UpdateNewMessageBodyType  | SendMessageType | FollowActionType | UnFollowActionType | setUsersActionType
+export type setUserProfileTypeActionType = {
+    type: 'SET_USER_PROFILE'
+    profile: ProfileResponseType
+}
+export type RootActionTypes = AddPostActionType | UpdateNewPostTextActionType |
+    UpdateNewMessageBodyType  | SendMessageType | FollowActionType | UnFollowActionType | setUsersActionType |
+    setUserProfileTypeActionType

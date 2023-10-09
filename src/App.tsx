@@ -1,12 +1,14 @@
 import React from 'react';
 import './App.css';
-import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
 import {Route, Routes} from "react-router-dom";
 import {AppRootStateType, StoreType} from "./redux/redux-store";
 import {SuperDialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {UserContainer} from "./components/Users/UserContainer";
 import { ProfileContainerC} from "./components/Profile/ProfileContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
+
+
 
 type AppPropsType = {
     store: StoreType
@@ -15,10 +17,10 @@ type AppPropsType = {
 function App(props: AppPropsType) {
 
     const state:AppRootStateType = props.store.getState()
-
+          debugger
     return (
         <div className='app-wrapper'>
-            <Header/>
+            <HeaderContainer/>
 
             <Navbar friends={state.sidebar.friends}/>
 
@@ -27,6 +29,7 @@ function App(props: AppPropsType) {
                     <Route path="/profile/:userId?" element={<ProfileContainerC/>}/>
                     <Route path="/dialogs/*" element={<SuperDialogsContainer  />}/>
                     <Route path='/users/' element={<UserContainer/>}/>
+                    {/*<Route path='/login/*' element={<Login/>}/>*/}
                 </Routes>
 
             </div>

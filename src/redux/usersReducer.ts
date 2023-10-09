@@ -113,7 +113,7 @@ export const usersReducer = (state:initialStateType = initialState, action: Acti
     }
 }
 
-debugger
+
 
 export const followUser = (userId: number): FollowActionType => {
     return {type: 'FOLLOW', userId: userId}

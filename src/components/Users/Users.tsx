@@ -3,6 +3,7 @@ import userPhoto from "../../assets/images/istockphoto-1337144146-612x612.jpeg";
 import styles from "./user.module.css";
 import {initialStateType} from "../../redux/usersReducer";
 import {NavLink} from "react-router-dom";
+import axios from "axios";
 
 
 type UsersPropsType = {
@@ -16,6 +17,7 @@ type UsersPropsType = {
 }
 
 const Users:React.FC<UsersPropsType> = (props) => {
+    debugger
     let pagesCount = Math.ceil(props.totalUserCount / props.pageSize)
     let pages = []
     for (let i = 1; i<= pagesCount; i++ ){
@@ -34,8 +36,31 @@ const Users:React.FC<UsersPropsType> = (props) => {
                                       <img src={el.photos.small  !== null ? el.photos.small :  userPhoto} alt='avatar' className={styles.userPhoto}/>
                             </NavLink>
                         </div></span>
-                        <span>{el.followed ?  <button onClick={()=>props.unFollowUser(el.id)}>Follow</button> :
-                            <button onClick={()=>props.followUser(el.id)}>Unfollow</button>}</span>
+                        <span>{el.followed ?
+                            <button onClick={()=>{
+                            axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {
+                                withCredentials: true,
+                                    headers: {
+                                        'API-KEY' : '51dcd19b-ecdb-4fba-82fc-a680bf8e7c9b'
+                                    }
+                            }).then(response => {
+                                console.log(response.data.resultCode)
+                                if(response.data.resultCode === 0){
+                                    props.unFollowUser(el.id)
+                                }})
+                            }}>Follow</button> :
+                            <button onClick={()=>{
+                            axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {} , {
+                                withCredentials: true,
+                                headers: {
+                                    'API-KEY' : '51dcd19b-ecdb-4fba-82fc-a680bf8e7c9b'
+                                }
+                            }).then(response => {
+                                console.log(response.data.resultCode)
+                              if(response.data.resultCode === 0){
+                                  props.followUser(el.id)
+                              }})}
+                            }>Unfollow</button>}</span>
                         <span><div>{el.name}</div><div>{el.status}</div></span>
                         <span><div>{'el.location.country'}</div><div>{'el.location.city'}</div></span>
                     </div>
@@ -44,5 +69,4 @@ const Users:React.FC<UsersPropsType> = (props) => {
         </div>
     );
 };
-
 export default Users;

@@ -20,6 +20,7 @@ export let rootReducer = combineReducers(
 )
 export type AppRootStateType = ReturnType<typeof rootReducer>
 export let store = createStore(rootReducer)
+debugger
 export type StoreType = typeof store
 
 // @ts-ignore

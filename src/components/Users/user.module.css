@@ -4,4 +4,6 @@
 }
 .selectedPage {
     font-weight: bold;
+    color: red;
+    border: 2px solid #11ff00;
 }

@@ -38,7 +38,9 @@ type PropsType =  UsersPropsType
 export class UsersComponent  extends React.Component<PropsType> {
     componentDidMount() {
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${ this.props.pageSize }`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${ this.props.pageSize }`, {
+            withCredentials:  true
+        })
             .then(response => {
                 this.props.toggleIsFetching(false)
             this.props.setUsers(response.data.items)
@@ -49,10 +51,13 @@ export class UsersComponent  extends React.Component<PropsType> {
     onPageChanged = (pageNumber: number) => {
         debugger
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${ this.props.pageSize }`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${ this.props.pageSize }`,{
+            withCredentials: true
+        })
             .then(response => {
                 this.props.toggleIsFetching(false)
             this.props.setUsers(response.data.items)})
+        this.props.setCurrentPage(pageNumber)
     }
 //делаем повторный запрос, при нажатии на кнопку (цифру страницы), в get запрос передаем page=${ this.props.currentPage} страницу,
 //которую хотим получить

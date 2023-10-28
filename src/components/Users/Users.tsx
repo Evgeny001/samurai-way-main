@@ -3,7 +3,7 @@ import userPhoto from "../../assets/images/istockphoto-1337144146-612x612.jpeg";
 import styles from "./user.module.css";
 import {initialStateType} from "../../redux/usersReducer";
 import {NavLink} from "react-router-dom";
-import {addUser, deleteUser} from "../../API/api";
+import {followAPI} from "../../API/api";
 
 
 type UsersPropsType = {
@@ -44,7 +44,7 @@ const Users:React.FC<UsersPropsType> = (props) => {
                             //             'API-KEY' : '51dcd19b-ecdb-4fba-82fc-a680bf8e7c9b'
                             //         }
                             // })
-                                deleteUser(el.id)
+                                followAPI.deleteUser(el.id)
                                 .then(data => {
                                 console.log(data.resultCode)
                                 if(data.resultCode === 0){
@@ -58,7 +58,7 @@ const Users:React.FC<UsersPropsType> = (props) => {
                             //         'API-KEY' : '51dcd19b-ecdb-4fba-82fc-a680bf8e7c9b'
                             //     }
                             // })
-                                addUser(el.id)
+                                followAPI.addUser(el.id)
                                 .then(data => {
                                 console.log(data.resultCode)
                               if(data.resultCode === 0){

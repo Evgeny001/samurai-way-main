@@ -11,9 +11,9 @@ import {
 } from "../../redux/usersReducer";
 import {connect} from "react-redux";
 import * as React from "react";
-import axios from "axios";
 import Users from "./Users";
 import Preloader from "../Preloader /Preloader";
+import {userIPI} from "../../API/api";
 
 
 
@@ -38,25 +38,21 @@ type PropsType =  UsersPropsType
 export class UsersComponent  extends React.Component<PropsType> {
     componentDidMount() {
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${ this.props.pageSize }`, {
-            withCredentials:  true
-        })
-            .then(response => {
+        userIPI.getUsers(this.props.currentPage, this.props.pageSize)
+            .then(data => {
                 this.props.toggleIsFetching(false)
-            this.props.setUsers(response.data.items)
-            this.props.setTotalUsersCount(response.data.totalCount)})
+            this.props.setUsers(data.items)
+            this.props.setTotalUsersCount(data.totalCount)})
     }
 //componentDidMount() делает первоначальный запрос на сервер, при запуске class Users1, получает данные и отправляет в State.
 //count=${ this.props.pageSize } количество Users1 в одной порции запроса.
     onPageChanged = (pageNumber: number) => {
-        debugger
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${ this.props.pageSize }`,{
-            withCredentials: true
-        })
-            .then(response => {
+        userIPI.getUsers(pageNumber, this.props.pageSize)
+            .then(data => {
+                debugger
                 this.props.toggleIsFetching(false)
-            this.props.setUsers(response.data.items)})
+            this.props.setUsers(data.items)})
         this.props.setCurrentPage(pageNumber)
     }
 //делаем повторный запрос, при нажатии на кнопку (цифру страницы), в get запрос передаем page=${ this.props.currentPage} страницу,

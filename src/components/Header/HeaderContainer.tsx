@@ -18,9 +18,8 @@ class HeaderContainer  extends React.Component<HeaderContainerType> {
             withCredentials: true
         } )
             .then(response => {{
-                debugger
                 if (response.data.resultCode === 0) {
-                    let {id, login, email} = response.data.data
+                    // let {id, login, email} = response.data.data
                     this.props.setAuthUserData(response.data.data)
                 }
             }
@@ -30,7 +29,7 @@ class HeaderContainer  extends React.Component<HeaderContainerType> {
             return <Header login={this.props.email} isAuth={this.props.isAuth} />
         }
     }
-   
+
 type mapStateToPropsType = {
     isAuth: boolean
     email: string | null

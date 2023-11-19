@@ -12,7 +12,6 @@ export const MyPosts = (props: PostsDataPropsType) => {
         let text = event.currentTarget.value
         props.updateNewPostText(text)
     }
-    debugger
     return (
         <div>
             <h3>My posts</h3>

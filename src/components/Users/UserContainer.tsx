@@ -5,7 +5,7 @@ import {
     initialStateType,
     setCurrentPage,
     setTotalUsersCount,
-    setUsers, toggleIsFetching,
+    setUsers, toggleFollowingProgress, toggleIsFetching,
     unFollowUser,
     UserType
 } from "../../redux/usersReducer";
@@ -23,6 +23,7 @@ type mapStateToPropsType = {
     pageSize: number
     currentPage: number
     ifFetching: boolean
+    followingInProgress: boolean
 }
 type mapDispatchToPropsType = {
     followUser: (userId: number) => void
@@ -31,6 +32,7 @@ type mapDispatchToPropsType = {
     setCurrentPage: (currentPage: number)  => void
     setTotalUsersCount: (totalCount: number) => void
     toggleIsFetching: (ifFetching: boolean) => void
+    toggleFollowingProgress: (followingInProgress: boolean) => void
 }
 export type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType
 type PropsType =  UsersPropsType
@@ -40,9 +42,11 @@ export class UsersComponent  extends React.Component<PropsType> {
         this.props.toggleIsFetching(true)
         userIPI.getUsers(this.props.currentPage, this.props.pageSize)
             .then(data => {
-                this.props.toggleIsFetching(false)
+
             this.props.setUsers(data.items)
-            this.props.setTotalUsersCount(data.totalCount)})
+            this.props.setTotalUsersCount(data.totalCount)}).finally(()=>{
+            this.props.toggleIsFetching(false)
+        })
     }
 //componentDidMount() делает первоначальный запрос на сервер, при запуске class Users1, получает данные и отправляет в State.
 //count=${ this.props.pageSize } количество Users1 в одной порции запроса.
@@ -50,7 +54,7 @@ export class UsersComponent  extends React.Component<PropsType> {
         this.props.toggleIsFetching(true)
         userIPI.getUsers(pageNumber, this.props.pageSize)
             .then(data => {
-                debugger
+
                 this.props.toggleIsFetching(false)
             this.props.setUsers(data.items)})
         this.props.setCurrentPage(pageNumber)
@@ -69,6 +73,8 @@ export class UsersComponent  extends React.Component<PropsType> {
                       followUser={this.props.followUser}
                       unFollowUser={this.props.unFollowUser}
                       usersPage={this.props.usersPage}
+                      toggleFollowingProgress={this.props.toggleFollowingProgress}
+                      followingInProgress={this.props.followingInProgress}
                />
      </>
         );
@@ -81,7 +87,8 @@ const mapStateToProps = (state: AppRootStateType): mapStateToPropsType  => {
      totalUserCount: state.usersPage.totalUserCount,
      pageSize: state.usersPage.pageSize,
      currentPage: state.usersPage.currentPage,
-     ifFetching: state.usersPage.ifFetching
+     ifFetching: state.usersPage.ifFetching,
+     followingInProgress: state.usersPage.followingInProgress
  }
 }
 // const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
@@ -109,4 +116,5 @@ export const UserContainer = connect(mapStateToProps, {
     setUsers,
     setCurrentPage,
     setTotalUsersCount,
-    toggleIsFetching})(UsersComponent)
+    toggleIsFetching,
+    toggleFollowingProgress})(UsersComponent)

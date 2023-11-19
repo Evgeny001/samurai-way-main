@@ -1,6 +1,4 @@
 
-
-
 export type  FollowActionType = {
     type: 'FOLLOW'
     userId: number
@@ -25,12 +23,17 @@ type  ToggleIsFetchingActionType = {
     type: 'TOGGLE_IS_FETCHING'
     ifFetching: boolean
 }
+type FollowingInProgressActionType = {
+    type: 'TOGGLE_IS_FOLLOWING_PROGRESS'
+    followingInProgress: boolean
+}
 type ActionTypes = FollowActionType
     | UnFollowActionType
     | setUsersActionType
     | SetCurrentPageActionType
     | SetTotalUsersCountActionType
-    |ToggleIsFetchingActionType
+    | ToggleIsFetchingActionType
+    | FollowingInProgressActionType
 // export type LocationType = {
 //     city: string
 //     country: string
@@ -43,6 +46,14 @@ type ActionTypes = FollowActionType
 //     photoUrl: string
 //     location: LocationType
 // }
+export type initialStateType = {
+    users: Array<UserType>
+    totalUserCount: number
+    pageSize: number
+    currentPage: number
+    ifFetching: boolean
+    followingInProgress: boolean
+}
 export type UserType = {
     name: string
     id: number
@@ -66,18 +77,11 @@ const initialState: initialStateType = {
     totalUserCount: 0,
     pageSize: 100,
     currentPage: 1,
-    ifFetching: false
-}
-export type initialStateType = {
-    users: Array<UserType>
-    totalUserCount: number
-    pageSize: number
-    currentPage: number
-    ifFetching: boolean
+    ifFetching: false,
+    followingInProgress: false
 }
 // export type initialStateType = typeof initialState
 export const usersReducer = (state:initialStateType = initialState, action: ActionTypes  ): initialStateType => {
-    debugger
     switch (action.type) {
         case "FOLLOW" : {
             return {
@@ -110,6 +114,11 @@ export const usersReducer = (state:initialStateType = initialState, action: Acti
                 ...state, ifFetching: action.ifFetching
             }
         }
+        case "TOGGLE_IS_FOLLOWING_PROGRESS": {
+            return {
+                ...state, followingInProgress: action.followingInProgress
+            }
+        }
         default: return state
     }
 }
@@ -134,4 +143,7 @@ export const setTotalUsersCount = (totalCount: number): SetTotalUsersCountAction
 }
 export const toggleIsFetching = (ifFetching: boolean): ToggleIsFetchingActionType => {
     return {type: 'TOGGLE_IS_FETCHING', ifFetching}
+}
+export const toggleFollowingProgress = (followingInProgress: boolean): FollowingInProgressActionType => {
+    return {type: "TOGGLE_IS_FOLLOWING_PROGRESS", followingInProgress}
 }

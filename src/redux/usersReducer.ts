@@ -1,3 +1,5 @@
+import {userIPI} from "../API/api";
+import {Dispatch} from "redux";
 
 export type  FollowActionType = {
     type: 'FOLLOW'
@@ -83,12 +85,14 @@ const initialState: initialStateType = {
 }
 // export type initialStateType = typeof initialState
 export const usersReducer = (state:initialStateType = initialState, action: ActionTypes  ): initialStateType => {
+    debugger
     switch (action.type) {
         case "FOLLOW" : {
             return {
                 ...state, users: state.users.map(el=> el.id=== action.userId ?{...el, followed: true}: el)
             }
         }
+        debugger
         case "UNFOLLOW": {
             return {
                 ...state, users: state.users.map(el=> el.id=== action.userId ?{...el, followed: false}: el)
@@ -126,9 +130,44 @@ export const usersReducer = (state:initialStateType = initialState, action: Acti
         default: return state
     }
 }
-
-
-
+export const getUsers = (currentPage: any, pageSize: any) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleIsFetching(true))
+        dispatch(setCurrentPage(currentPage))
+        userIPI.getUsers(currentPage,pageSize)
+            .then(data => {
+                dispatch(setUsers(data.items))
+                dispatch(setTotalUsersCount(data.totalCount))
+                console.log(data)
+            }).catch(()=>console.log('!'))
+        dispatch(toggleIsFetching(false))
+    }
+}
+export const follow = (id: any) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleFollowingProgress(true, id))
+        userIPI.unFollowSuccess(id)
+            .then(data => {
+                console.log(data.resultCode)
+                if(data.resultCode === 0){
+                    dispatch(unFollowUser(id))
+                }
+                dispatch(toggleFollowingProgress(false, id))
+            })}
+    }
+export const unFollow = (id: any) => {
+    debugger
+    return (dispatch: Dispatch) => {
+        dispatch(toggleFollowingProgress(true, id))
+        userIPI.unFollowSuccess(id)
+            .then(data => {
+                console.log(data)
+                if(data.resultCode === 0){
+                    dispatch(followUser(id))
+                }      dispatch(toggleFollowingProgress(false, id))
+            })
+    }
+}
 export const followUser = (userId: number): FollowActionType => {
     return {type: 'FOLLOW', userId: userId}
 }

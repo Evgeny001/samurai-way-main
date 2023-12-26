@@ -17,7 +17,7 @@ type AppPropsType = {
 function App(props: AppPropsType) {
 
     const state:AppRootStateType = props.store.getState()
-        
+
     return (
         <div className='app-wrapper'>
             <HeaderContainer/>

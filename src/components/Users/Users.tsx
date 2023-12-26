@@ -1,9 +1,9 @@
 import * as React from "react";
 import userPhoto from "../../assets/images/istockphoto-1337144146-612x612.jpeg";
 import styles from "./user.module.css";
-import {initialStateType} from "../../redux/usersReducer";
+import { initialStateType, unFollow} from "../../redux/usersReducer";
 import {NavLink} from "react-router-dom";
-import {followAPI} from "../../API/api";
+import {userIPI} from "../../API/api";
 
 
 type UsersPropsType = {
@@ -16,6 +16,8 @@ type UsersPropsType = {
     unFollowUser: (userId: number) => void
     toggleFollowingProgress: (isFetching: boolean, userId: number) => void
     followingInProgress: [] | number[]
+    follow: (id: any) => any
+    unFollow : (id: any) => any
 }
 
 const Users:React.FC<UsersPropsType> = (props) => {
@@ -49,15 +51,18 @@ const Users:React.FC<UsersPropsType> = (props) => {
                             //             'API-KEY' : '51dcd19b-ecdb-4fba-82fc-a680bf8e7c9b'
                             //         }
                             // })
-                                props.toggleFollowingProgress(true, el.id)
-                                followAPI.deleteUser(el.id)
-                                .then(data => {
-                                console.log(data.resultCode)
-                                if(data.resultCode === 0){
-                                    props.unFollowUser(el.id)
-                                }
-                                props.toggleFollowingProgress(false, el.id)
-                                })}}>Follow</button> :
+                            //         props.unFollow(el.id)
+                                    props.toggleFollowingProgress(true, el.id)
+                                    userIPI.unFollowSuccess(el.id)
+                                        .then(data => {
+                                            console.log(data.resultCode)
+                                            if(data.resultCode === 0){
+                                                props.unFollowUser(el.id)
+                                            }
+                                            props.toggleFollowingProgress(false, el.id)
+
+                                })
+                            }}>Follow</button> :
                             <button
                                 disabled={props.followingInProgress.some(id => id === el.id )}
                                 onClick={()=>{
@@ -67,14 +72,15 @@ const Users:React.FC<UsersPropsType> = (props) => {
                             //         'API-KEY' : '51dcd19b-ecdb-4fba-82fc-a680bf8e7c9b'
                             //     }
                             // })
-                                props.toggleFollowingProgress(true, el.id)
-                                followAPI.addUser(el.id)
-                                .then(data => {
-                                console.log(data.resultCode)
-                              if(data.resultCode === 0){
-                                  props.followUser(el.id)
-                              }      props.toggleFollowingProgress(false, el.id)
-                                })
+                            //         props.follow(el.id)
+                                    props.toggleFollowingProgress(true, el.id)
+                                    userIPI.followSuccess(el.id)
+                                        .then(data => {
+                                            console.log(data.resultCode)
+                                            if(data.resultCode === 0){
+                                                props.followUser(el.id)
+                                            }      props.toggleFollowingProgress(false, el.id)
+                                        })
                             }
                             }>Unfollow</button>}</span>
                         <span><div>{el.name}</div><div>{el.status}</div></span>

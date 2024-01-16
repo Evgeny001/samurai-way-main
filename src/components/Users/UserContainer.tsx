@@ -5,7 +5,7 @@ import {
     followUser, getUsers,
     initialStateType,
     setCurrentPage,
-    toggleFollowingProgress, toggleIsFetching, unFollow,
+    toggleFollowingProgress, unFollow,
     unFollowUser,
 
 } from "../../redux/usersReducer";
@@ -13,7 +13,6 @@ import {connect} from "react-redux";
 import * as React from "react";
 import Users from "./Users";
 import Preloader from "../Preloader /Preloader";
-import {userIPI} from "../../API/api";
 
 
 
@@ -45,7 +44,7 @@ export class UsersComponent  extends React.Component<PropsType> {
 //count=${ this.props.pageSize } количество Users1 в одной порции запроса.
     onPageChanged = (pageNumber: number) => {
         // this.props.setCurrentPage(pageNumber);
-        {this.props.getUsers(pageNumber, this.props.pageSize)}
+        this.props.getUsers(pageNumber, this.props.pageSize)
     }
 //делаем повторный запрос, при нажатии на кнопку (цифру страницы), в get запрос передаем page=${ this.props.currentPage} страницу,
 //которую хотим получить

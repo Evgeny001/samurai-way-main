@@ -7,7 +7,7 @@ const instance = axios.create({
     headers: {
         'API-KEY' : 'c39f7650-4219-4ca8-8a57-6493d2b385c4'
     }})
-export const userIPI = {
+export const userAPI = {
     getUsers (pageNumber: number = 1, pageSize: number = 10) {
         return instance.get(`users?page=${pageNumber}&count=${ pageSize }`)
             .then(response=>response.data)},
@@ -20,7 +20,6 @@ export const userIPI = {
         return instance.delete(`follow/${userID}`)
             .then(response => (response.data)
             )
-    debugger
     }
 }
 // export const getUsers = (pageNumber: number = 1, pageSize: number = 10) => {

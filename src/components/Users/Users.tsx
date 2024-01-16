@@ -1,9 +1,9 @@
 import * as React from "react";
 import userPhoto from "../../assets/images/istockphoto-1337144146-612x612.jpeg";
 import styles from "./user.module.css";
-import { initialStateType, unFollow} from "../../redux/usersReducer";
+import { initialStateType} from "../../redux/usersReducer";
 import {NavLink} from "react-router-dom";
-import {userIPI} from "../../API/api";
+import {userAPI} from "../../API/api";
 
 
 type UsersPropsType = {
@@ -53,7 +53,7 @@ const Users:React.FC<UsersPropsType> = (props) => {
                             // })
                             //         props.unFollow(el.id)
                                     props.toggleFollowingProgress(true, el.id)
-                                    userIPI.unFollowSuccess(el.id)
+                                    userAPI.unFollowSuccess(el.id)
                                         .then(data => {
                                             console.log(data.resultCode)
                                             if(data.resultCode === 0){
@@ -74,7 +74,7 @@ const Users:React.FC<UsersPropsType> = (props) => {
                             // })
                             //         props.follow(el.id)
                                     props.toggleFollowingProgress(true, el.id)
-                                    userIPI.followSuccess(el.id)
+                                    userAPI.followSuccess(el.id)
                                         .then(data => {
                                             console.log(data.resultCode)
                                             if(data.resultCode === 0){

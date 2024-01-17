@@ -20,6 +20,22 @@ export const userAPI = {
         return instance.delete(`follow/${userID}`)
             .then(response => (response.data)
             )
+    },
+    getProfile (userId : number = 2) {
+        return instance.get(`profile/${userId}`)
+    }
+}
+export const authAPI  = {
+    me () {
+        return instance.get( `auth/me/`)
+    }
+}
+
+export const headerAPI = {
+    getHeaderSuccess () {
+        return instance.get( `https://social-network.samuraijs.com/api/1.0/auth/me/`)
+            .then(response  => (response.data)
+     )
     }
 }
 // export const getUsers = (pageNumber: number = 1, pageSize: number = 10) => {

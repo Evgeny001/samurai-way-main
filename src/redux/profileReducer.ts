@@ -44,7 +44,6 @@ let initailState: ProfilePageType = {
         {id: 2, message: 'It is my first post', likes: 20}
     ],
     newPostText: '',
-    // profile: null as ProfileResponseType | null
     profile: null as ProfileResponseType | null
 }
 

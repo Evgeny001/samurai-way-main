@@ -1,3 +1,4 @@
+// @ts-ignore
 import React from 'react'
 import classes from './Header.module.css'
 import {NavLink} from "react-router-dom";

@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React from 'react';
 import {
     sendMessageActionCreator,
@@ -23,6 +24,7 @@ type MessagesDataType = {
 }
 type mapStateToProps = {
     state: MessagesPageType
+    isAuth: boolean
 }
 type mapDispatchToProps = {
     sendMessage: () => void
@@ -34,6 +36,7 @@ export type DialogsPropsType = mapStateToProps & mapDispatchToProps
 const  mapStateToProps = (state: AppRootStateType): mapStateToProps => {
     return   {
         state: state.messagesPage,
+        isAuth:state.auth.isAuth
     }
 }
 const  mapDispatchToProps = (dispatch: Dispatch): mapDispatchToProps => {

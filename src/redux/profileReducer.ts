@@ -4,6 +4,8 @@ import {
     setUserProfileTypeActionType,
     UpdateNewPostTextActionType
 } from "./ActionType";
+import {Dispatch} from "redux";
+import {userAPI} from "../API/api";
 
 type PostsDataType = {
     message: string
@@ -66,6 +68,11 @@ export const profileReducer = (state: ProfilePageType = initailState, action: Ro
         default: return state
     }
 };
+export const getUserProfile = (userId: number) => {
+    return (dispatch: Dispatch) => {
+       userAPI.getProfile(userId).then(response => dispatch(setUserProfile(response.data)))
+    }
+}
 export const addPostActionCreater  = (): AddPostActionType => {
     return {type: "ADD_POST"}
 }

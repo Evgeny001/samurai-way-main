@@ -1,4 +1,6 @@
 import {RootActionTypes, setAuthUserDataTypeActionType} from "./ActionType";
+import {Dispatch} from "redux";
+import {authAPI} from "../API/api";
 
 export type DataAuthType = {
     id: number | null
@@ -30,7 +32,16 @@ export const authReduser = (state:AuthDataType = initialState, action: RootActio
             return state
     }
 }
-
+export const getAuthUserData = () => {
+    return (dispatch: Dispatch)  => {
+        authAPI.me()
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    // let {id, login, email} = response.data.data
+                   dispatch(setAuthUserData(response.data.data))
+                }
+            })
+}  }
 export const setAuthUserData = ( data: DataAuthType ): setAuthUserDataTypeActionType => {
     return{type: 'SET_USER_DATA', data}
 }

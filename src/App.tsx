@@ -7,6 +7,7 @@ import {SuperDialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {UserContainer} from "./components/Users/UserContainer";
 import { ProfileContainerC} from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import {Login} from "./components/Login/Login";
 
 
 
@@ -29,7 +30,7 @@ function App(props: AppPropsType) {
                     <Route path="/profile/:userId?" element={<ProfileContainerC/>}/>
                     <Route path="/dialogs/*" element={<SuperDialogsContainer  />}/>
                     <Route path='/users/' element={<UserContainer/>}/>
-                    {/*<Route path='/login/*' element={<Login/>}/>*/}
+                    <Route path='/login/*' element={<Login/>}/>
                 </Routes>
 
             </div>

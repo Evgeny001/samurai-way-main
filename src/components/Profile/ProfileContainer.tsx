@@ -1,18 +1,18 @@
 import * as React from "react";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/redux-store";
-import {ProfileResponseType, setUserProfile} from "../../redux/profileReducer";
+import {getUserProfile, ProfileResponseType} from "../../redux/profileReducer";
 import {Profile} from "./Profile";
 import {withRouter} from "./ProfileInfo/WithRouterHOC";
-import {userAPI} from "../../API/api";
+import {Navigate} from "react-router-dom";
 
 type mapStateToPropsType = {
     // profile: ProfileResponseType | null
     profile: ProfileResponseType  |  null
+    isAuth: boolean
 }
 type mapDispatchToPropsType = {
-    getProfile: (userId : number ) => void
-    setUserProfile:  ( profile: ProfileResponseType) => void
+    getUserProfile: (userId : number ) => void
 }
 type MatchPropsType = {
     match: {
@@ -27,20 +27,19 @@ export class ProfileContainer extends React.Component<ProfilePropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
         if(!userId) userId = 2
-        userAPI.getProfile(userId)
-            .then(response => {
-                this.props.setUserProfile(response.data)
-            })
+            this.props.getUserProfile(userId)
     }
   render(): React.ReactNode {
+        if(this.props.isAuth === false) return <Navigate to='/login'/>
       return <Profile profile= {this.props.profile}/>;
   }
 }
 
 const mapStateToProps = (state: AppRootStateType): mapStateToPropsType  => {
     return{
-        profile: state.profilePage.profile
+        profile: state.profilePage.profile,
+        isAuth: state.auth.isAuth
     }}
 
 const WithUrlDataContainerComponent =  withRouter(ProfileContainer)
-export  const ProfileContainerC = connect(mapStateToProps, { setUserProfile} )(WithUrlDataContainerComponent)
+export  const ProfileContainerC = connect(mapStateToProps, { getUserProfile} )(WithUrlDataContainerComponent)

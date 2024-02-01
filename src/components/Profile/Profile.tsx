@@ -14,6 +14,7 @@ type PostsDataPropsType = {
 
 }
 export const Profile:React.FC<PostsDataPropsType> = (props) => {
+    debugger
     return (
         <div>
             <ProfileInfo profile = {props.profile} />

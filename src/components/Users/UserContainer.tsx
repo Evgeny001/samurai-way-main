@@ -13,6 +13,7 @@ import {connect} from "react-redux";
 import * as React from "react";
 import Users from "./Users";
 import Preloader from "../Preloader /Preloader";
+import {withAuthRedirect} from "../../hok/withAuthRedirect";
 
 
 
@@ -99,6 +100,7 @@ const mapStateToProps = (state: AppRootStateType): mapStateToPropsType  => {
 //         setTotalUsersCount: setTotalUsersCountAC,
 //         toggleIsFetchingAC: toggleIsFetchingAC})(UsersComponent)
 
+let AuthRedirectComponent = withAuthRedirect(UsersComponent)
 export const UserContainer = connect(mapStateToProps, {
     followUser,
     unFollowUser,
@@ -107,4 +109,4 @@ export const UserContainer = connect(mapStateToProps, {
     getUsers,
     follow,
     unFollow
-})(UsersComponent)
+})(AuthRedirectComponent)

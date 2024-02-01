@@ -29,7 +29,7 @@ function App(props: AppPropsType) {
                 <Routes>
                     <Route path="/profile/:userId?" element={<ProfileContainerC/>}/>
                     <Route path="/dialogs/*" element={<SuperDialogsContainer  />}/>
-                    <Route path='/users/' element={<UserContainer/>}/>
+                    <Route path='/users/' element={<UserContainer />}/>
                     <Route path='/login/*' element={<Login/>}/>
                 </Routes>
 

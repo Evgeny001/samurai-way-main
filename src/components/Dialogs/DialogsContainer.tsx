@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React from 'react';
 import {
     sendMessageActionCreator,
@@ -8,6 +7,7 @@ import {Dialogs} from "./Dialogs";
 import {AppRootStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
+import {withAuthRedirect} from "../../hok/withAuthRedirect";
 
 type MessagesPageType = {
     dialogsData: DialogsDataType[]
@@ -49,7 +49,12 @@ const  mapDispatchToProps = (dispatch: Dispatch): mapDispatchToProps => {
         }
     }
 }
-export const SuperDialogsContainer = connect (mapStateToProps, mapDispatchToProps) (Dialogs)
+// let AuthRedirectComponent = (props: DialogsPropsType) => {
+//     if(props.isAuth === false) return <Navigate to='/login'/>
+//     return <Dialogs {...props}/>
+// }
+let AuthRedirectComponent = withAuthRedirect(Dialogs)
+export const SuperDialogsContainer = connect (mapStateToProps, mapDispatchToProps) (AuthRedirectComponent)
 
 //(dispatch: Dispatch) - import {Dispatch} from "redux"; обязательно из redux!!!
 // эта типизация проверяет, что бы мы Dispatch именно Action - объект у которого есть свойство type.

@@ -6,7 +6,7 @@ import {
 import {Dialogs} from "./Dialogs";
 import {AppRootStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
-import {Dispatch} from "redux";
+import {compose, Dispatch} from "redux";
 import {withAuthRedirect} from "../../hok/withAuthRedirect";
 
 type MessagesPageType = {
@@ -53,8 +53,13 @@ const  mapDispatchToProps = (dispatch: Dispatch): mapDispatchToProps => {
 //     if(props.isAuth === false) return <Navigate to='/login'/>
 //     return <Dialogs {...props}/>
 // }
-let AuthRedirectComponent = withAuthRedirect(Dialogs)
-export const SuperDialogsContainer = connect (mapStateToProps, mapDispatchToProps) (AuthRedirectComponent)
+// let AuthRedirectComponent = withAuthRedirect(Dialogs)
+// export const SuperDialogsContainer = connect (mapStateToProps, mapDispatchToProps) (AuthRedirectComponent)
+export const SuperDialogsContainer = compose<React.ComponentType>(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect
+)(Dialogs)
+//-----------------------------------------------------------------------------------------------------//
 
 //(dispatch: Dispatch) - import {Dispatch} from "redux"; обязательно из redux!!!
 // эта типизация проверяет, что бы мы Dispatch именно Action - объект у которого есть свойство type.

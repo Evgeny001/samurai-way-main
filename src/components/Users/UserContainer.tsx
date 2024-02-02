@@ -14,6 +14,7 @@ import * as React from "react";
 import Users from "./Users";
 import Preloader from "../Preloader /Preloader";
 import {withAuthRedirect} from "../../hok/withAuthRedirect";
+import {compose} from "redux";
 
 
 
@@ -100,13 +101,26 @@ const mapStateToProps = (state: AppRootStateType): mapStateToPropsType  => {
 //         setTotalUsersCount: setTotalUsersCountAC,
 //         toggleIsFetchingAC: toggleIsFetchingAC})(UsersComponent)
 
-let AuthRedirectComponent = withAuthRedirect(UsersComponent)
-export const UserContainer = connect(mapStateToProps, {
-    followUser,
-    unFollowUser,
-    setCurrentPage,
-    toggleFollowingProgress,
-    getUsers,
-    follow,
-    unFollow
-})(AuthRedirectComponent)
+// let AuthRedirectComponent = withAuthRedirect(UsersComponent)
+// export const UserContainer = connect(mapStateToProps, {
+//     followUser,
+//     unFollowUser,
+//     setCurrentPage,
+//     toggleFollowingProgress,
+//     getUsers,
+//     follow,
+//     unFollow
+// })(AuthRedirectComponent)
+//-----------------------------------------------------------------------------------------------------//
+export const UserContainer = compose<React.ComponentType>(
+    connect(mapStateToProps, {
+        followUser,
+        unFollowUser,
+        setCurrentPage,
+        toggleFollowingProgress,
+        getUsers,
+        follow,
+        unFollow
+    }),
+    withAuthRedirect
+)(UsersComponent)

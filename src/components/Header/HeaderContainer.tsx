@@ -1,4 +1,5 @@
-import * as React from "react";
+import React from "react";
+import { Component } from "react"
 import {Header} from "./Header";
 import {connect} from "react-redux";
 import { getAuthUserData} from "../../redux/authReduser";
@@ -11,7 +12,7 @@ type HeaderContainerType = {
     email: string | null
 }
 
-class HeaderContainer  extends React.Component<HeaderContainerType> {
+class HeaderContainer  extends Component<HeaderContainerType> {
     componentDidMount() {
         this.props.getAuthUserData()
     }
